@@ -9,7 +9,7 @@ Utility functions for Stuart Sierra's [Component][] library.
 Add the following dependency to your project.clj file:
 
 ```clojure
-[listora/component-utils "0.1.0-SNAPSHOT"]
+[listora/component-utils "0.1.0"]
 ```
 
 ## Usage
