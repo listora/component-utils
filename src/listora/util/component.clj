@@ -1,6 +1,15 @@
-(ns listora.util.component)
+(ns listora.util.component
+  (:require [clojure.string :as str]
+            [com.stuartsierra.component :as component]
+            [taoensso.timbre :as log]))
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+(defn component-name [component]
+  (-> component class .getName (str/split #"\.") last))
+
+(defn verbose-start [component]
+  (log/info (str "Starting " (component-name component) "…"))
+  (component/start component))
+
+(defn verbose-stop [component]
+  (log/info (str "Stopping " (component-name component) "…"))
+  (component/stop component))
