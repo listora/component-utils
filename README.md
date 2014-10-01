@@ -19,7 +19,7 @@ This library currently just includes verbose versions of `start`,
 [Timbre][] when a component is started or stopped.
 
 ```clojure
-(require '[listora.util.component :refer [verbose-start-system]))
+(require '[listora.util.component :refer [verbose-start-system]])
 
 (verbose-start-system your-system)
 ```
