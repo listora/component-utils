@@ -13,3 +13,15 @@
 (defn verbose-stop [component]
   (log/info (str "Stopping " (component-name component) "…"))
   (component/stop component))
+
+(defn verbose-start-system
+  ([system]
+     (verbose-start-system system (keys system)))
+  ([system component-keys]
+     (component/update-system system component-keys #'verbose-start)))
+
+(defn verbose-stop-system
+  ([system]
+     (verbose-stop-system system (keys system)))
+  ([system component-keys]
+     (component/update-system-reverse system component-keys #'verbose-stop)))

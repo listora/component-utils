@@ -28,3 +28,38 @@
     (testing "logging"
       (let [out (with-out-str (verbose-stop component))]
         (is (re-find #"Stopping TestComponent…" out))))))
+
+(defrecord AnotherTestComponent []
+  component/Lifecycle
+  (start [component] (assoc component :running? true))
+  (stop  [component] (dissoc component :running?)))
+
+(def test-system
+  (-> (component/system-map
+       :test-component (->TestComponent)
+       :another-test-component (->AnotherTestComponent))
+      (component/system-using
+       {:another-test-component [:test-component]})))
+
+(deftest test-verbose-start-system
+  (testing "return value"
+    (with-out-str
+      (is (= (verbose-start-system test-system)
+             (component/start-system test-system)))))
+    (testing "logging"
+      (let [out (with-out-str (verbose-start-system test-system))]
+        (is (re-find #"Starting TestComponent…" out))
+        (is (re-find #"Starting AnotherTestComponent…" out))
+        (is (re-find #"(?s)TestComponent.*AnotherTestComponent" out)))))
+
+(deftest test-verbose-stop-system
+  (let [system (component/start-system test-system)]
+    (testing "return value"
+      (with-out-str
+        (is (= (verbose-stop-system system)
+               (component/stop-system system)))))
+    (testing "logging"
+      (let [out (with-out-str (verbose-stop-system system))]
+        (is (re-find #"Stopping AnotherTestComponent…" out))
+        (is (re-find #"Stopping TestComponent…" out))
+        (is (re-find #"(?s)AnotherTestComponent.*TestComponent" out))))))
