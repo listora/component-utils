@@ -1,4 +1,4 @@
-(defproject listora/component-utils "0.1.0"
+(defproject listora/component-utils "0.1.1"
   :description "Utility function for the Component library"
   :url "https://github.com/listora/component-utils"
   :license {:name "Eclipse Public License"
