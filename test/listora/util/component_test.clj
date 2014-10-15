@@ -46,11 +46,11 @@
     (with-out-str
       (is (= (verbose-start-system test-system)
              (component/start-system test-system)))))
-    (testing "logging"
-      (let [out (with-out-str (verbose-start-system test-system))]
-        (is (re-find #"Starting TestComponent…" out))
-        (is (re-find #"Starting AnotherTestComponent…" out))
-        (is (re-find #"(?s)TestComponent.*AnotherTestComponent" out)))))
+  (testing "logging"
+    (let [out (with-out-str (verbose-start-system test-system))]
+      (is (re-find #"Starting TestComponent…" out))
+      (is (re-find #"Starting AnotherTestComponent…" out))
+      (is (re-find #"(?s)TestComponent.*AnotherTestComponent" out)))))
 
 (deftest test-verbose-stop-system
   (let [system (component/start-system test-system)]
@@ -63,3 +63,20 @@
         (is (re-find #"Stopping AnotherTestComponent…" out))
         (is (re-find #"Stopping TestComponent…" out))
         (is (re-find #"(?s)AnotherTestComponent.*TestComponent" out))))))
+
+(def verbose-test-system
+  (-> (verbose-system-map
+       :test-component (->TestComponent)
+       :another-test-component (->AnotherTestComponent))
+      (component/system-using
+       {:another-test-component [:test-component]})))
+
+(deftest test-verbose-system
+  (testing "logging"
+    (let [out (with-out-str (-> verbose-test-system
+                                component/start
+                                component/stop))]
+      (is (re-find #"Starting TestComponent…" out))
+      (is (re-find #"Starting AnotherTestComponent…" out))
+      (is (re-find #"Stopping AnotherTestComponent…" out))
+      (is (re-find #"Stopping TestComponent…" out)))))

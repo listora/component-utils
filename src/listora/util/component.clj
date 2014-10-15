@@ -25,3 +25,14 @@
      (verbose-stop-system system (keys system)))
   ([system component-keys]
      (component/update-system-reverse system component-keys #'verbose-stop)))
+
+(defrecord VerboseSystemMap []
+  component/Lifecycle
+  (start [system] (verbose-start-system system))
+  (stop [system]  (verbose-stop-system system)))
+
+(defmethod clojure.core/print-method VerboseSystemMap [_ w]
+  (.write w "#<SystemMap>"))
+
+(defn verbose-system-map [& {:as config}]
+  (map->VerboseSystemMap config))
