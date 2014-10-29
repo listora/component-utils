@@ -18,7 +18,7 @@
         (is (= (verbose-start component) (component/start component)))))
     (testing "logging"
       (let [out (with-out-str (verbose-start component))]
-        (is (re-find #"Starting TestComponent…" out))))))
+        (is (re-find #"Starting TestComponent..." out))))))
 
 (deftest test-verbose-stop
   (let [component (component/start (->TestComponent))]
@@ -27,7 +27,7 @@
         (is (= (verbose-stop component) (component/stop component)))))
     (testing "logging"
       (let [out (with-out-str (verbose-stop component))]
-        (is (re-find #"Stopping TestComponent…" out))))))
+        (is (re-find #"Stopping TestComponent..." out))))))
 
 (defrecord AnotherTestComponent []
   component/Lifecycle
@@ -48,8 +48,8 @@
              (component/start-system test-system)))))
   (testing "logging"
     (let [out (with-out-str (verbose-start-system test-system))]
-      (is (re-find #"Starting TestComponent…" out))
-      (is (re-find #"Starting AnotherTestComponent…" out))
+      (is (re-find #"Starting TestComponent..." out))
+      (is (re-find #"Starting AnotherTestComponent..." out))
       (is (re-find #"(?s)TestComponent.*AnotherTestComponent" out)))))
 
 (deftest test-verbose-stop-system
@@ -60,8 +60,8 @@
                (component/stop-system system)))))
     (testing "logging"
       (let [out (with-out-str (verbose-stop-system system))]
-        (is (re-find #"Stopping AnotherTestComponent…" out))
-        (is (re-find #"Stopping TestComponent…" out))
+        (is (re-find #"Stopping AnotherTestComponent..." out))
+        (is (re-find #"Stopping TestComponent..." out))
         (is (re-find #"(?s)AnotherTestComponent.*TestComponent" out))))))
 
 (def verbose-test-system
@@ -76,7 +76,7 @@
     (let [out (with-out-str (-> verbose-test-system
                                 component/start
                                 component/stop))]
-      (is (re-find #"Starting TestComponent…" out))
-      (is (re-find #"Starting AnotherTestComponent…" out))
-      (is (re-find #"Stopping AnotherTestComponent…" out))
-      (is (re-find #"Stopping TestComponent…" out)))))
+      (is (re-find #"Starting TestComponent..." out))
+      (is (re-find #"Starting AnotherTestComponent..." out))
+      (is (re-find #"Stopping AnotherTestComponent..." out))
+      (is (re-find #"Stopping TestComponent..." out)))))

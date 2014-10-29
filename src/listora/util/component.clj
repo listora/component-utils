@@ -7,11 +7,11 @@
   (-> component class .getName (str/split #"\.") last))
 
 (defn verbose-start [component]
-  (log/info (str "Starting " (component-name component) "…"))
+  (log/info (str "Starting " (component-name component) "..."))
   (component/start component))
 
 (defn verbose-stop [component]
-  (log/info (str "Stopping " (component-name component) "…"))
+  (log/info (str "Stopping " (component-name component) "..."))
   (component/stop component))
 
 (defn verbose-start-system
