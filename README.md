@@ -1,5 +1,7 @@
 # Component-Utils
 
+[![Build Status](https://travis-ci.org/listora/component-utils.svg)](https://travis-ci.org/listora/component-utils)
+
 Utility functions for Stuart Sierra's [Component][] library.
 
 [Component]: https://github.com/stuartsierra/component
