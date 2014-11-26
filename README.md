@@ -1,8 +1,8 @@
 # Component-Utils
 
-Utility functions for Stuart Sierra's [Component][] library.
+[![Build Status](https://travis-ci.org/listora/component-utils.svg)](https://travis-ci.org/listora/component-utils)
 
-[Component]: https://github.com/stuartsierra/component
+Utility functions for Stuart Sierra's [Component][] library.
 
 ## Installation
 
@@ -24,11 +24,12 @@ This library currently just includes verbose versions of `start`,
 (verbose-start-system your-system)
 ```
 
-[Timbre]: https://github.com/ptaoussanis/timbre
-
 ## License
 
 Copyright © 2014 Listora
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
+
+[Component]: https://github.com/stuartsierra/component
+[Timbre]: https://github.com/ptaoussanis/timbre
